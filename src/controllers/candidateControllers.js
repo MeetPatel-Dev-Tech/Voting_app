@@ -1,65 +1,50 @@
-const user = require("../models/user");
-const candidate = require("../models/candidate");
+const candidateService = require("../services/candidateService");
 const logger = require("../utils/logger");
 
-const checkAdminRole = async (userId) => {
-  try {
-    const User = await user.findById(userId);
-    return User.role === "admin";
-  } catch (error) {
-    logger.error("Error in admin-check:", error);
-    return false;
-  }
-};
-
-// Create a new candidate (admin only)
+// Create a candidate (admin only)
 exports.createCandidate = async (req, res) => {
   try {
-    if (!(await checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "user dose not have admin role" });
+    // Check for admin role
+    if (!(await candidateService.checkAdminRole(req.user.id))) {
+      return res.status(403).json({ message: "User does not have admin role" });
     }
-    const data = req.body; //assuming the body contains person data
-    const newCadidate = new candidate(data);
-    const response = await newCadidate.save();
 
-    res.status(200).json({ response: response });
+    // Create and return new candidate
+    const response = await candidateService.createCandidate(req.body);
+    res.status(200).json({ response });
   } catch (error) {
     logger.error("Error in createCandidate:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
+// Get all candidates
 exports.getAllCandidates = async (req, res) => {
   try {
-    const candidateList = await candidate.find();
-    res.status(200).json({ response: candidateList });
+    const response = await candidateService.getAllCandidates();
+    res.status(200).json({ response });
   } catch (error) {
     logger.error("Error in getAllCandidates:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-// Update an existing candidate (admin only)
+// Update candidate by ID (admin only)
 exports.updateCandidate = async (req, res) => {
   try {
-    if (!(await checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "user dose not have admin role" });
+    if (!(await candidateService.checkAdminRole(req.user.id))) {
+      return res.status(403).json({ message: "User does not have admin role" });
     }
-    const canddidateId = req.params.candidateId;
-    const updateCandidateData = req.body;
 
-    const response = await candidate.findByIdAndUpdate(
-      canddidateId,
-      updateCandidateData,
-      {
-        new: true,
-        runValidators: true,
-      }
+    const response = await candidateService.updateCandidate(
+      req.params.candidateId,
+      req.body
     );
 
     if (!response) {
       return res.status(404).json({ error: "Candidate Not Found" });
     }
+
     res.status(200).json(response);
   } catch (error) {
     logger.error("Error in updateCandidate:", error);
@@ -67,19 +52,21 @@ exports.updateCandidate = async (req, res) => {
   }
 };
 
-// Delete a candidate (admin only)
+// Delete candidate by ID (admin only)
 exports.deleteCandidate = async (req, res) => {
   try {
-    if (!(await checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "user dose not have admin role" });
+    if (!(await candidateService.checkAdminRole(req.user.id))) {
+      return res.status(403).json({ message: "User does not have admin role" });
     }
-    const canddidateId = req.params.candidateId;
 
-    const response = await candidate.findByIdAndDelete(canddidateId);
+    const response = await candidateService.deleteCandidate(
+      req.params.candidateId
+    );
 
     if (!response) {
       return res.status(404).json({ error: "Candidate Not Found" });
     }
+
     res.status(200).json(response);
   } catch (error) {
     logger.error("Error in deleteCandidate:", error);
@@ -87,58 +74,25 @@ exports.deleteCandidate = async (req, res) => {
   }
 };
 
-// Vote for a candidate (only non-admin, one-time vote)
+// Vote for candidate (non-admin users only, once per user)
 exports.voteForCandidate = async (req, res) => {
-  const candidateID = req.params.candidateId;
-  const userId = req.user.id;
-
   try {
-    const Candidate = await candidate.findById(candidateID);
-
-    if (!Candidate) {
-      return res.status(404).json({ error: "Candidate Not Found" });
-    }
-
-    const User = await user.findById(userId);
-
-    if (!User) {
-      return res.status(404).json({ error: "User Not Found" });
-    }
-    if (User.isVoted) {
-      return res.status(400).json({ error: "You have already voted" });
-    }
-    if (User.role === "admin") {
-      return res.status(404).json({ error: "admin is not allowed" });
-    }
-
-    // update candidate documents
-    Candidate.votes.push({ user: userId });
-    Candidate.voteCount++;
-    await Candidate.save();
-
-    // update the user documents
-    User.isVoted = true;
-    await User.save();
-
-    res.status(200).json({ message: "vote recorded succesfully" });
+    const response = await candidateService.voteForCandidate(
+      req.params.candidateId,
+      req.user.id
+    );
+    res.status(200).json(response);
   } catch (error) {
-    logger.error("Error in voteForCandidate:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    logger.error("Error in voteForCandidate:", error.message);
+    res.status(400).json({ error: error.message });
   }
 };
 
+// Get total vote counts sorted by highest votes
 exports.getVoteCounts = async (req, res) => {
   try {
-    const Candidate = await candidate.find().sort({ voteCount: "desc" });
-
-    const voteRecord = Candidate.map((data) => {
-      return {
-        party: data.party,
-        count: data.voteCount,
-      };
-    });
-
-    return res.status(200).json(voteRecord);
+    const response = await candidateService.getVoteCounts();
+    res.status(200).json(response);
   } catch (error) {
     logger.error("Error in getVoteCounts:", error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -1,5 +1,5 @@
 const { generateToken } = require("../middlewares/jwt");
-const user = require("../models/user");
+const userService = require("../services/userService");
 const logger = require("../utils/logger");
 
 exports.signup = async (req, res) => {
@@ -7,14 +7,13 @@ exports.signup = async (req, res) => {
     const { role, ...data } = req.body;
 
     if (role === "admin") {
-      const existingAdmin = await user.findOne({ role: "admin" });
+      const existingAdmin = await userService.findExistingAdmin();
       if (existingAdmin) {
         return res.status(400).json({ error: "Admin already exists" });
       }
     }
 
-    const newUser = new user(data);
-    const savedUser = await newUser.save();
+    const savedUser = await userService.createUser(data);
     const token = generateToken({ id: savedUser.id });
 
     res.status(200).json({ response: savedUser, token });
@@ -28,16 +27,13 @@ exports.login = async (req, res) => {
   try {
     const { aadharCardNumber, password } = req.body;
 
-    const User = await user.findOne({ aadharCardNumber: aadharCardNumber });
+    const User = await userService.findByAadhar(aadharCardNumber);
 
     if (!User || !(await User.comparePassword(password))) {
       return res.status(401).json({ error: "Invalid Username or password" });
     }
 
-    const payload = {
-      id: User.id,
-    };
-    const token = generateToken(payload);
+    const token = generateToken({ id: User.id });
     res.json({ token });
   } catch (error) {
     logger.error("Error in login:", error);
@@ -47,9 +43,8 @@ exports.login = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    const userData = req.user;
-    const userId = userData.id;
-    const User = await user.findById(userId);
+    const userId = req.user.id;
+    const User = await userService.findUserById(userId);
     res.status(200).json({ User });
   } catch (error) {
     logger.error("Error in getProfile:", error);
@@ -59,10 +54,10 @@ exports.getProfile = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
   try {
-    const userId = req.user; // Extract ID from token
+    const userId = req.user.id;
     const { currentPassword, newPassword } = req.body;
 
-    const User = await user.findById(userId);
+    const User = await userService.findUserById(userId);
 
     if (!(await User.comparePassword(currentPassword))) {
       return res.status(401).json({ error: "Invalid username or password" });
@@ -73,36 +68,31 @@ exports.updatePassword = async (req, res) => {
 
     res.status(200).json({ message: "Password updated" });
   } catch (error) {
-    logger.log("Error in updatePassword:", error);
+    logger.error("Error in updatePassword:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 exports.updateProfile = async (req, res) => {
   try {
-    const { password, ...otherData } = req.body;
     const userId = req.user.id;
+    const { password, ...otherData } = req.body;
 
-    // Find the user first
-    const User = await user.findById(userId);
+    const User = await userService.findUserById(userId);
 
     if (!User) {
       return res.status(404).json({ error: "User Not Found" });
     }
 
-    // Update other fields
-    Object.assign(User, otherData);
-
-    // If password is present in the request, update it and ensure hashing
     if (password) {
-      logger.info("Updating password...");
       User.password = password;
     }
 
-    // Save the document (triggers pre("save") middleware)
-    await User.save();
+    const updatedUser = await userService.updateUser(User, otherData);
 
-    res.status(200).json({ message: "Profile updated successfully", User });
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully", User: updatedUser });
   } catch (error) {
     logger.error("Error in updateProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -112,8 +102,10 @@ exports.updateProfile = async (req, res) => {
 exports.deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const User = await user.findByIdAndDelete(userId);
-    res.status(200).json({ User });
+    const deleted = await userService.deleteUserById(userId);
+    res
+      .status(200)
+      .json({ message: "User Deleted Successfully", User: deleted });
   } catch (error) {
     logger.error("Error in deleteProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });

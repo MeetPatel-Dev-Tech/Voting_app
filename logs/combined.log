@@ -82,3 +82,31 @@ Received SIGINT. Closing server and DB connection...
 [2025-04-10 16:34:46] INFO: connected to mongoDB server ::
 [2025-04-10 16:34:50] INFO: 
 🚦 Received SIGINT. Closing server and DB connection...
+[2025-04-10 16:58:59] INFO: Server running on port 3000
+[2025-04-10 16:58:59] INFO: connected to mongoDB server ::
+[2025-04-10 16:59:24] INFO: Server running on port 3000
+[2025-04-10 16:59:24] INFO: connected to mongoDB server ::
+[2025-04-10 17:01:13] INFO: Hashing password...
+[2025-04-10 17:01:52] INFO: Hashing password...
+[2025-04-10 17:02:04] INFO: Hashing password...
+[2025-04-10 17:04:20] WARN: Token Not Found or Invalid Format
+[2025-04-10 17:08:51] ERROR: Error in updatePassword: Cast to ObjectId failed for value "{ id: '67f7ac01a5349279b91f56d0', iat: 1744284673, exp: 1744314673 }" (type Object) at path "_id" for model "User"
+[2025-04-10 17:11:50] ERROR: Error in updatePassword: Cast to ObjectId failed for value "{ id: '67f7ac01a5349279b91f56d0', iat: 1744284673, exp: 1744314673 }" (type Object) at path "_id" for model "User"
+[2025-04-10 17:15:02] INFO: Server running on port 3000
+[2025-04-10 17:15:02] INFO: connected to mongoDB server ::
+[2025-04-10 17:15:11] INFO: Hashing password...
+[2025-04-10 17:17:29] INFO: Hashing password...
+[2025-04-10 17:17:45] INFO: Hashing password...
+[2025-04-10 17:18:33] WARN: Token Not Found or Invalid Format
+[2025-04-10 17:19:26] INFO: Server running on port 3000
+[2025-04-10 17:19:26] INFO: connected to mongoDB server ::
+[2025-04-10 17:22:43] INFO: Server running on port 3000
+[2025-04-10 17:22:43] INFO: connected to mongoDB server ::
+[2025-04-10 17:27:08] INFO: Server running on port 3000
+[2025-04-10 17:27:08] INFO: connected to mongoDB server ::
+[2025-04-10 17:27:48] INFO: Server running on port 3000
+[2025-04-10 17:27:48] INFO: connected to mongoDB server ::
+[2025-04-10 17:29:44] ERROR: Error JWT Verification: jwt expired
+[2025-04-10 17:42:57] ERROR: Error JWT Verification: jwt expired
+[2025-04-10 17:46:15] WARN: Token Not Found or Invalid Format
+[2025-04-10 17:47:50] WARN: Token Not Found or Invalid Format

@@ -1,3 +1,7 @@
 [2025-04-10 16:14:42] ERROR: ❌ Error during MongoDB shutdown: mongoose is not defined
 [2025-04-10 16:15:22] ERROR: disconnected to mongoDB server ::
 [2025-04-10 16:34:50] ERROR: disconnected to mongoDB server ::
+[2025-04-10 17:08:51] ERROR: Error in updatePassword: Cast to ObjectId failed for value "{ id: '67f7ac01a5349279b91f56d0', iat: 1744284673, exp: 1744314673 }" (type Object) at path "_id" for model "User"
+[2025-04-10 17:11:50] ERROR: Error in updatePassword: Cast to ObjectId failed for value "{ id: '67f7ac01a5349279b91f56d0', iat: 1744284673, exp: 1744314673 }" (type Object) at path "_id" for model "User"
+[2025-04-10 17:29:44] ERROR: Error JWT Verification: jwt expired
+[2025-04-10 17:42:57] ERROR: Error JWT Verification: jwt expired
