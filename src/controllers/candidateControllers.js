@@ -1,13 +1,14 @@
 const express = require("express");
 const user = require("../models/user");
 const candidate = require("../models/candidate");
+const logger = require("../utils/logger");
 
 const checkAdminRole = async (userId) => {
   try {
     const User = await user.findById(userId);
     return User.role === "admin";
   } catch (error) {
-    console.log("error::", error);
+    logger.error("Error in admin-check:", error);
     return false;
   }
 };
@@ -15,7 +16,6 @@ const checkAdminRole = async (userId) => {
 exports.createCandidate = async (req, res) => {
   try {
     if (!(await checkAdminRole(req.user.id))) {
-      console.log("here");
       return res.status(403).json({ message: "user dose not have admin role" });
     }
     const data = req.body; //assuming the body contains person data
@@ -24,7 +24,7 @@ exports.createCandidate = async (req, res) => {
 
     res.status(200).json({ response: response });
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in createCandidate:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -34,7 +34,7 @@ exports.getAllCandidates = async (req, res) => {
     const candidateList = await candidate.find();
     res.status(200).json({ response: candidateList });
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in getAllCandidates:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -61,7 +61,7 @@ exports.updateCandidate = async (req, res) => {
     }
     res.status(200).json(response);
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in updateCandidate:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -80,7 +80,7 @@ exports.deleteCandidate = async (req, res) => {
     }
     res.status(200).json(response);
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in deleteCandidate:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -119,7 +119,7 @@ exports.voteForCandidate = async (req, res) => {
 
     res.status(200).json({ message: "vote recorded succesfully" });
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in voteForCandidate:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -139,7 +139,7 @@ exports.getVoteCounts = async (req, res) => {
 
     return res.status(200).json(voteRecord);
   } catch (error) {
-    console.log("Error", error);
+    logger.error("Error in getVoteCounts:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

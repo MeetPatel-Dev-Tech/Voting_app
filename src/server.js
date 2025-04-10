@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./config/db");
 require("dotenv").config();
+const logger = require("./utils/logger");
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -14,5 +15,5 @@ app.use("/user", userRoutes);
 app.use("/candidate", candidateRoutes);
 
 app.listen(PORT, () => {
-  console.log("Listing on port 3000");
+  logger.info(`Server running on port ${PORT}`);
 });

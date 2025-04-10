@@ -1,13 +1,16 @@
 var jwt = require("jsonwebtoken");
+const logger = require("../utils/logger");
 
 const jwtAuthMiddleware = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (!authorization || !authorization.startsWith("Bearer ")) {
+    logger.warn("Token Not Found or Invalid Format");
     return res.status(401).json({ error: "Token Not Found or Invalid Format" });
   }
 
   const token = authorization.split(" ")[1];
   if (!token) {
+    logger.warn("Unauthorized: Token is missing");
     return res.status(401).json({ error: "Unauthorized: Token is missing" });
   }
 
@@ -16,7 +19,7 @@ const jwtAuthMiddleware = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    console.error("JWT Verification Error:", error);
+    logger.error("Error JWT Verification:", error);
     return res.status(401).json({ error: "Invalid token" });
   }
 };

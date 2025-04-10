@@ -1,5 +1,6 @@
 const { generateToken } = require("../middlewares/jwt");
 const user = require("../models/user");
+const logger = require("../utils/logger");
 
 exports.signup = async (req, res) => {
   try {
@@ -18,7 +19,7 @@ exports.signup = async (req, res) => {
 
     res.status(200).json({ response: savedUser, token });
   } catch (err) {
-    console.error(err);
+    logger.error("Error in signup:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -39,7 +40,7 @@ exports.login = async (req, res) => {
     const token = generateToken(payload);
     res.json({ token });
   } catch (error) {
-    console.error(error);
+    logger.error("Error in login:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -51,7 +52,7 @@ exports.getProfile = async (req, res) => {
     const User = await user.findById(userId);
     res.status(200).json({ User });
   } catch (error) {
-    console.error(error);
+    logger.error("Error in getProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -72,7 +73,7 @@ exports.updatePassword = async (req, res) => {
 
     res.status(200).json({ message: "Password updated" });
   } catch (error) {
-    console.log("Error", error);
+    logger.log("Error in updatePassword:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -94,7 +95,7 @@ exports.updateProfile = async (req, res) => {
 
     // If password is present in the request, update it and ensure hashing
     if (password) {
-      console.log("Updating password...");
+      logger.info("Updating password...");
       User.password = password;
     }
 
@@ -103,7 +104,7 @@ exports.updateProfile = async (req, res) => {
 
     res.status(200).json({ message: "Profile updated successfully", User });
   } catch (error) {
-    console.error(error);
+    logger.error("Error in updateProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -114,7 +115,7 @@ exports.deleteProfile = async (req, res) => {
     const User = await user.findByIdAndDelete(userId);
     res.status(200).json({ user });
   } catch (error) {
-    console.error(error);
+    logger.error("Error in deleteProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

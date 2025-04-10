@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
+const logger = require("../utils/logger");
 
 // MongoDb url
 
@@ -16,15 +17,15 @@ const db = mongoose.connection;
 
 // Event listener
 db.on("connected", () => {
-  console.log("connected to mongoDB server ::");
+  logger.info("connected to mongoDB server ::");
 });
 
 db.on("error", () => {
-  console.log("error to mongoDB server ::");
+  logger.warn("error to mongoDB server ::");
 });
 
 db.on("disconnected", () => {
-  console.log("disconnected to mongoDB server ::");
+  logger.error("disconnected to mongoDB server ::");
 });
 
 //export Database connection

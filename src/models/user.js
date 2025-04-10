@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-// define person schema
+const logger = require("../utils/logger");
 
+// define person schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -45,7 +46,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
   const user = this;
   if (!this.isModified("password")) {
-    console.log("Password not modified, skipping hashing");
+    logger.info("Password not modified, skipping hashing");
     return next();
   }
 
@@ -57,6 +58,7 @@ userSchema.pre("save", async function (next) {
     user.password = hashedPassword;
     next();
   } catch (error) {
+    logger.error("Error while hashing password: " + error.message);
     return next(error);
   }
 });
@@ -66,6 +68,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
     const isMatch = await bcrypt.compare(candidatePassword, this.password);
     return isMatch;
   } catch (error) {
+    logger.error("Password comparison failed: " + error.message);
     throw error;
   }
 };
