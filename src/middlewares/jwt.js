@@ -1,6 +1,7 @@
 var jwt = require("jsonwebtoken");
 const logger = require("../utils/logger");
 
+// Middleware to validate JWT token
 const jwtAuthMiddleware = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (!authorization || !authorization.startsWith("Bearer ")) {
@@ -14,6 +15,7 @@ const jwtAuthMiddleware = (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized: Token is missing" });
   }
 
+  // Verify and decode the token
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
@@ -24,8 +26,9 @@ const jwtAuthMiddleware = (req, res, next) => {
   }
 };
 
+// Function to generate JWT token with user data
 const generateToken = (userData) => {
-  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: 30000 });
+  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: 30000 }); // 1800 seconds = 30 minutes
 };
 
 module.exports = { jwtAuthMiddleware, generateToken };

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const logger = require("../utils/logger");
 
-// define person schema
+// Define User schema for voters and admins
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Hash password before saving the user
 userSchema.pre("save", async function (next) {
   const user = this;
   if (!this.isModified("password")) {
@@ -50,7 +51,7 @@ userSchema.pre("save", async function (next) {
     return next();
   }
 
-  console.log("Hashing password...");
+  logger.info("Hashing password...");
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(user.password, salt);
@@ -63,6 +64,7 @@ userSchema.pre("save", async function (next) {
   }
 });
 
+// Compare plain password with hashed password
 userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     const isMatch = await bcrypt.compare(candidatePassword, this.password);

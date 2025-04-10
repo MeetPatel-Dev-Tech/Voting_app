@@ -1,4 +1,3 @@
-const express = require("express");
 const user = require("../models/user");
 const candidate = require("../models/candidate");
 const logger = require("../utils/logger");
@@ -13,6 +12,7 @@ const checkAdminRole = async (userId) => {
   }
 };
 
+// Create a new candidate (admin only)
 exports.createCandidate = async (req, res) => {
   try {
     if (!(await checkAdminRole(req.user.id))) {
@@ -39,6 +39,7 @@ exports.getAllCandidates = async (req, res) => {
   }
 };
 
+// Update an existing candidate (admin only)
 exports.updateCandidate = async (req, res) => {
   try {
     if (!(await checkAdminRole(req.user.id))) {
@@ -66,6 +67,7 @@ exports.updateCandidate = async (req, res) => {
   }
 };
 
+// Delete a candidate (admin only)
 exports.deleteCandidate = async (req, res) => {
   try {
     if (!(await checkAdminRole(req.user.id))) {
@@ -85,6 +87,7 @@ exports.deleteCandidate = async (req, res) => {
   }
 };
 
+// Vote for a candidate (only non-admin, one-time vote)
 exports.voteForCandidate = async (req, res) => {
   const candidateID = req.params.candidateId;
   const userId = req.user.id;
@@ -123,8 +126,6 @@ exports.voteForCandidate = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
-// vote count
 
 exports.getVoteCounts = async (req, res) => {
   try {

@@ -113,7 +113,7 @@ exports.deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const User = await user.findByIdAndDelete(userId);
-    res.status(200).json({ user });
+    res.status(200).json({ User });
   } catch (error) {
     logger.error("Error in deleteProfile:", error);
     res.status(500).json({ error: "Internal Server Error" });

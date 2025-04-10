@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Candidate schema defines a political candidate and their vote records
 const candidateSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -32,5 +33,6 @@ const candidateSchema = new mongoose.Schema({
   },
 });
 
+// Exporting the Candidate model
 const candidate = mongoose.model("Candidate", candidateSchema);
 module.exports = candidate;
