@@ -18,6 +18,29 @@ app.use("/user", userRoutes);
 app.use("/candidate", candidateRoutes);
 
 // Start the Express server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });
+
+// Graceful shutdown logic
+const gracefulShutdown = (signal) => {
+  logger.info(`\n🚦 Received ${signal}. Closing server and DB connection...`);
+
+  server.close(async () => {
+    logger.info("HTTP server closed");
+
+    try {
+      const mongoose = require("mongoose");
+      await mongoose.connection.close(false); // no callback here
+      logger.info("MongoDB connection closed");
+      process.exit(0);
+    } catch (err) {
+      logger.error("Error during MongoDB shutdown:", err);
+      process.exit(1);
+    }
+  });
+};
+
+// Listen for termination signals
+process.on("SIGINT", () => gracefulShutdown("SIGINT")); // Ctrl+C
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM")); // kill

@@ -57,3 +57,28 @@
 [2025-04-10 15:57:35] INFO: connected to mongoDB server ::
 [2025-04-10 15:58:40] INFO: Server running on port 3000
 [2025-04-10 15:58:40] INFO: connected to mongoDB server ::
+[2025-04-10 15:58:45] INFO: Server running on port 3000
+[2025-04-10 15:58:45] INFO: connected to mongoDB server ::
+[2025-04-10 16:11:03] INFO: Server running on port 3000
+[2025-04-10 16:11:03] INFO: connected to mongoDB server ::
+[2025-04-10 16:11:12] INFO: 
+Received SIGINT. Closing server and DB connection...
+[2025-04-10 16:13:02] INFO: Server running on port 3000
+[2025-04-10 16:13:02] INFO: connected to mongoDB server ::
+[2025-04-10 16:13:04] INFO: 
+Received SIGINT. Closing server and DB connection...
+[2025-04-10 16:14:41] INFO: Server running on port 3000
+[2025-04-10 16:14:41] INFO: connected to mongoDB server ::
+[2025-04-10 16:14:42] INFO: 
+🚦 Received SIGINT. Closing server and DB connection...
+[2025-04-10 16:15:21] INFO: Server running on port 3000
+[2025-04-10 16:15:21] INFO: connected to mongoDB server ::
+[2025-04-10 16:15:22] INFO: 
+🚦 Received SIGINT. Closing server and DB connection...
+[2025-04-10 16:15:22] INFO: 🛑 HTTP server closed
+[2025-04-10 16:34:41] INFO: Server running on port 3000
+[2025-04-10 16:34:41] INFO: connected to mongoDB server ::
+[2025-04-10 16:34:46] INFO: Server running on port 3000
+[2025-04-10 16:34:46] INFO: connected to mongoDB server ::
+[2025-04-10 16:34:50] INFO: 
+🚦 Received SIGINT. Closing server and DB connection...
