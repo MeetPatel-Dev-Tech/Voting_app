@@ -9,3 +9,5 @@
 [2025-04-11 11:20:02] ERROR: Error JWT Verification: jwt expired
 [2025-04-11 11:46:07] ERROR: Error JWT Verification: jwt expired
 [2025-04-11 11:48:07] ERROR: Error JWT Verification: jwt expired
+[2025-04-11 14:31:25] ERROR: disconnected to mongoDB server ::
+[2025-04-11 14:41:00] ERROR: disconnected to mongoDB server ::

@@ -1,46 +1,36 @@
-const express = require("express");
-const app = express();
-const db = require("./config/db");
-require("dotenv").config();
+require("dotenv").config(); // Load environment variables from .env file
+const mongoose = require("mongoose");
+const app = require("./app");
 const logger = require("./utils/logger");
+const db = require("./config/db");
 
-// Middleware to parse JSON bodies
-var bodyParser = require("body-parser");
-app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
-// Import route handlers
-const userRoutes = require("./routes/userRoutes");
-const candidateRoutes = require("./routes/candidateRoutes");
-
-// Mount route handlers
-app.use("/user", userRoutes);
-app.use("/candidate", candidateRoutes);
-
-// Start the Express server
+// Start the HTTP server
 const server = app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });
 
-// Graceful shutdown logic
+// Graceful shutdown handler
 const gracefulShutdown = (signal) => {
   logger.info(`\n🚦 Received ${signal}. Closing server and DB connection...`);
 
+  // Close HTTP server first
   server.close(async () => {
     logger.info("HTTP server closed");
 
     try {
-      const mongoose = require("mongoose");
-      await mongoose.connection.close(false); // no callback here
+      // Close MongoDB connection
+      await mongoose.connection.close(false);
       logger.info("MongoDB connection closed");
-      process.exit(0);
+      process.exit(0); // Exit process cleanly
     } catch (err) {
       logger.error("Error during MongoDB shutdown:", err);
-      process.exit(1);
+      process.exit(1); // Exit with failure
     }
   });
 };
 
-// Listen for termination signals
-process.on("SIGINT", () => gracefulShutdown("SIGINT")); // Ctrl+C
-process.on("SIGTERM", () => gracefulShutdown("SIGTERM")); // kill
+// Handle process termination signals (e.g., Ctrl+C or kill)
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
