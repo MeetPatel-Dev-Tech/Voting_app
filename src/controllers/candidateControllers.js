@@ -1,20 +1,20 @@
 import * as candidateService from "../services/candidateService.js";
 import logger from "../utils/logger.js";
+import { successResponse, errorResponse } from "../utils/responseHandler.js";
 
 // Create a candidate (admin only)
 export const createCandidate = async (req, res) => {
   try {
-    // Check for admin role
-    if (!(await candidateService.checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "User does not have admin role" });
-    }
-
     // Create and return new candidate
     const response = await candidateService.createCandidate(req.body);
-    res.status(200).json({ response });
+    return successResponse(
+      res,
+      { candidate: response },
+      "Candidate created successfully"
+    );
   } catch (error) {
     logger.error("Error in createCandidate:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -22,55 +22,57 @@ export const createCandidate = async (req, res) => {
 export const getAllCandidates = async (req, res) => {
   try {
     const response = await candidateService.getAllCandidates();
-    res.status(200).json({ response });
+    return successResponse(
+      res,
+      { allCadidates: response },
+      "All candidates fetched successfully"
+    );
   } catch (error) {
     logger.error("Error in getAllCandidates:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
 // Update candidate by ID (admin only)
 export const updateCandidate = async (req, res) => {
   try {
-    if (!(await candidateService.checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "User does not have admin role" });
-    }
-
     const response = await candidateService.updateCandidate(
       req.params.candidateId,
       req.body
     );
 
     if (!response) {
-      return res.status(404).json({ error: "Candidate Not Found" });
+      return errorResponse(res, "Candidate Not Found", 404);
     }
-
-    res.status(200).json(response);
+    return successResponse(
+      res,
+      { candidate: response },
+      "Candidate updated successfully"
+    );
   } catch (error) {
     logger.error("Error in updateCandidate:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
 // Delete candidate by ID (admin only)
 export const deleteCandidate = async (req, res) => {
   try {
-    if (!(await candidateService.checkAdminRole(req.user.id))) {
-      return res.status(403).json({ message: "User does not have admin role" });
-    }
-
     const response = await candidateService.deleteCandidate(
       req.params.candidateId
     );
 
     if (!response) {
-      return res.status(404).json({ error: "Candidate Not Found" });
+      return errorResponse(res, "Candidate Not Found", 404);
     }
-
-    res.status(200).json(response);
+    return successResponse(
+      res,
+      { candidate: response },
+      "Candidate deleted successfully"
+    );
   } catch (error) {
     logger.error("Error in deleteCandidate:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -81,10 +83,10 @@ export const voteForCandidate = async (req, res) => {
       req.params.candidateId,
       req.user.id
     );
-    res.status(200).json(response);
+    return successResponse(res, { data: response }, "Voted successfully");
   } catch (error) {
     logger.error("Error in voteForCandidate:", error.message);
-    res.status(400).json({ error: error.message });
+    return errorResponse(res, error.message, 400);
   }
 };
 
@@ -92,9 +94,13 @@ export const voteForCandidate = async (req, res) => {
 export const getVoteCounts = async (req, res) => {
   try {
     const response = await candidateService.getVoteCounts();
-    res.status(200).json(response);
+    return successResponse(
+      res,
+      { data: response },
+      "Vote counts fetched successfully"
+    );
   } catch (error) {
     logger.error("Error in getVoteCounts:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };

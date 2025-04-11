@@ -21,6 +21,11 @@ export const findExistingAdmin = async () => {
   return await User.findOne({ role: "admin" });
 };
 
+// Find one admin user
+export const findExistingUser = async (aadharCardNumber) => {
+  return await User.findOne({ aadharCardNumber: aadharCardNumber });
+};
+
 // Update and save user
 export const updateUser = async (userDoc, newData) => {
   Object.assign(userDoc, newData);

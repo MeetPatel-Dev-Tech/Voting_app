@@ -19,12 +19,14 @@ import {
   candidateIdParamSchema,
   voteParamsSchema,
 } from "../validators/candidateSchemas.js";
+import verifyAdminAccess from "../middlewares/verifyAdminAccess.js";
 
 // Create a new candidate (Admin only)
 router.post(
   "/",
   jwtAuthMiddleware,
   yupValidator(createCandidateSchema, "body"),
+  verifyAdminAccess,
   createCandidate
 );
 
@@ -37,6 +39,7 @@ router.put(
   jwtAuthMiddleware,
   yupValidator(candidateIdParamSchema, "params"),
   yupValidator(updateCandidateSchema, "body"),
+  verifyAdminAccess,
   updateCandidate
 );
 
@@ -45,6 +48,7 @@ router.delete(
   "/:candidateId",
   jwtAuthMiddleware,
   yupValidator(candidateIdParamSchema, "params"),
+  verifyAdminAccess,
   deleteCandidate
 );
 

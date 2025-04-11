@@ -1,25 +1,40 @@
 import { generateToken } from "../middlewares/auth/jwt.js";
 import * as userService from "../services/userService.js";
 import logger from "../utils/logger.js";
+import { successResponse, errorResponse } from "../utils/responseHandler.js";
 
 export const signup = async (req, res) => {
   try {
-    const { role, ...data } = req.body;
+    const { role, aadharCardNumber, ...data } = req.body;
 
     if (role === "admin") {
       const existingAdmin = await userService.findExistingAdmin();
       if (existingAdmin) {
-        return res.status(400).json({ error: "Admin already exists" });
+        return errorResponse(res, "Admin already exists", 400);
       }
     }
 
-    const savedUser = await userService.createUser(data);
+    const existingUser = await userService.findExistingUser(aadharCardNumber);
+    if (existingUser) {
+      return errorResponse(res, "User already registered, kindly login.", 400);
+    }
+
+    const savedUser = await userService.createUser({
+      role,
+      aadharCardNumber,
+      ...data,
+    });
+
     const token = generateToken({ id: savedUser.id });
 
-    res.status(200).json({ response: savedUser, token });
+    return successResponse(
+      res,
+      { user: savedUser, token },
+      "Signup successful"
+    );
   } catch (err) {
     logger.error("Error in signup:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -30,14 +45,14 @@ export const login = async (req, res) => {
     const User = await userService.findByAadhar(aadharCardNumber);
 
     if (!User || !(await User.comparePassword(password))) {
-      return res.status(401).json({ error: "Invalid Username or password" });
+      return errorResponse(res, "Invalid username or password", 401);
     }
 
     const token = generateToken({ id: User.id });
-    res.json({ token });
+    return successResponse(res, { token }, "Login successful");
   } catch (error) {
     logger.error("Error in login:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -45,10 +60,10 @@ export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const User = await userService.findUserById(userId);
-    res.status(200).json({ User });
+    return successResponse(res, { user: User }, "User profile fetched");
   } catch (error) {
     logger.error("Error in getProfile:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -60,16 +75,16 @@ export const updatePassword = async (req, res) => {
     const User = await userService.findUserById(userId);
 
     if (!(await User.comparePassword(currentPassword))) {
-      return res.status(401).json({ error: "Invalid username or password" });
+      return errorResponse(res, "Invalid username or password", 401);
     }
 
     User.password = newPassword;
     await User.save();
 
-    res.status(200).json({ message: "Password updated" });
+    return successResponse(res, null, "Password updated");
   } catch (error) {
     logger.error("Error in updatePassword:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -81,7 +96,7 @@ export const updateProfile = async (req, res) => {
     const User = await userService.findUserById(userId);
 
     if (!User) {
-      return res.status(404).json({ error: "User Not Found" });
+      return errorResponse(res, "User Not Found", 404);
     }
 
     if (password) {
@@ -90,12 +105,14 @@ export const updateProfile = async (req, res) => {
 
     const updatedUser = await userService.updateUser(User, otherData);
 
-    res
-      .status(200)
-      .json({ message: "Profile updated successfully", User: updatedUser });
+    return successResponse(
+      res,
+      { user: updatedUser },
+      "Profile updated successfully"
+    );
   } catch (error) {
     logger.error("Error in updateProfile:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
 
@@ -103,11 +120,9 @@ export const deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const deleted = await userService.deleteUserById(userId);
-    res
-      .status(200)
-      .json({ message: "User Deleted Successfully", User: deleted });
+    return successResponse(res, { user: deleted }, "User deleted successfully");
   } catch (error) {
     logger.error("Error in deleteProfile:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return errorResponse(res, "Internal Server Error");
   }
 };
