@@ -1,4 +1,4 @@
-const { generateToken } = require("../middlewares/jwt");
+const { generateToken } = require("../middlewares/auth/jwt");
 const userService = require("../services/userService");
 const logger = require("../utils/logger");
 

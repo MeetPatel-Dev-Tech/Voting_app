@@ -110,3 +110,55 @@ Received SIGINT. Closing server and DB connection...
 [2025-04-10 17:42:57] ERROR: Error JWT Verification: jwt expired
 [2025-04-10 17:46:15] WARN: Token Not Found or Invalid Format
 [2025-04-10 17:47:50] WARN: Token Not Found or Invalid Format
+[2025-04-10 18:28:31] INFO: Server running on port 3000
+[2025-04-10 18:28:31] INFO: connected to mongoDB server ::
+[2025-04-10 18:30:58] INFO: Server running on port 3000
+[2025-04-10 18:30:58] INFO: connected to mongoDB server ::
+[2025-04-10 18:31:12] INFO: Server running on port 3000
+[2025-04-10 18:31:12] INFO: connected to mongoDB server ::
+[2025-04-10 18:31:24] INFO: Server running on port 3000
+[2025-04-10 18:31:24] INFO: connected to mongoDB server ::
+[2025-04-10 18:49:15] INFO: Server running on port 3000
+[2025-04-10 18:49:15] INFO: connected to mongoDB server ::
+[2025-04-11 10:56:20] INFO: Server running on port 3000
+[2025-04-11 10:56:20] INFO: connected to mongoDB server ::
+[2025-04-11 10:56:26] INFO: Server running on port 3000
+[2025-04-11 10:56:26] INFO: connected to mongoDB server ::
+[2025-04-11 10:56:33] INFO: 
+🚦 Received SIGINT. Closing server and DB connection...
+[2025-04-11 11:10:44] INFO: Server running on port 3000
+[2025-04-11 11:10:44] INFO: connected to mongoDB server ::
+[2025-04-11 11:12:49] INFO: Server running on port 3000
+[2025-04-11 11:12:49] INFO: connected to mongoDB server ::
+[2025-04-11 11:12:53] INFO: Server running on port 3000
+[2025-04-11 11:12:53] INFO: connected to mongoDB server ::
+[2025-04-11 11:12:59] INFO: Hashing password...
+[2025-04-11 11:13:04] INFO: Hashing password...
+[2025-04-11 11:13:04] ERROR: Error in signup: E11000 duplicate key error collection: voting.users index: aadharCardNumber_1 dup key: { aadharCardNumber: "305053670814" }
+[2025-04-11 11:15:17] INFO: Server running on port 3000
+[2025-04-11 11:15:17] INFO: connected to mongoDB server ::
+[2025-04-11 11:15:50] INFO: Server running on port 3000
+[2025-04-11 11:15:50] INFO: connected to mongoDB server ::
+[2025-04-11 11:16:43] INFO: Hashing password...
+[2025-04-11 11:17:17] INFO: Hashing password...
+[2025-04-11 11:17:28] INFO: Hashing password...
+[2025-04-11 11:17:42] INFO: Password not modified, skipping hashing
+[2025-04-11 11:18:21] INFO: Hashing password...
+[2025-04-11 11:19:00] INFO: Hashing password...
+[2025-04-11 11:20:02] ERROR: Error JWT Verification: jwt expired
+[2025-04-11 11:39:28] INFO: Server running on port 3000
+[2025-04-11 11:39:28] INFO: connected to mongoDB server ::
+[2025-04-11 11:39:32] INFO: Server running on port 3000
+[2025-04-11 11:39:32] INFO: connected to mongoDB server ::
+[2025-04-11 11:39:59] INFO: Server running on port 3000
+[2025-04-11 11:39:59] INFO: connected to mongoDB server ::
+[2025-04-11 11:40:13] INFO: Server running on port 3000
+[2025-04-11 11:40:13] INFO: connected to mongoDB server ::
+[2025-04-11 11:40:28] INFO: Server running on port 3000
+[2025-04-11 11:40:28] INFO: connected to mongoDB server ::
+[2025-04-11 11:40:41] INFO: Server running on port 3000
+[2025-04-11 11:40:41] INFO: connected to mongoDB server ::
+[2025-04-11 11:41:00] INFO: Server running on port 3000
+[2025-04-11 11:41:00] INFO: connected to mongoDB server ::
+[2025-04-11 11:46:07] ERROR: Error JWT Verification: jwt expired
+[2025-04-11 11:48:07] ERROR: Error JWT Verification: jwt expired

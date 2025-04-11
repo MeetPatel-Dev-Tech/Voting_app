@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken");
-const logger = require("../utils/logger");
+const logger = require("../../utils/logger");
 
 // Middleware to validate JWT token
 const jwtAuthMiddleware = (req, res, next) => {
