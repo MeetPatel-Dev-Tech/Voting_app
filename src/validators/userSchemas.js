@@ -1,4 +1,4 @@
-const yup = require("yup");
+import * as yup from "yup";
 
 // Common Fields
 const name = yup.string().required("Name is required");
@@ -21,7 +21,7 @@ const role = yup.string().oneOf(["voter", "admin"]).default("voter");
 const isVoted = yup.boolean().default(false);
 
 // Signup Schema
-exports.signupSchema = yup.object({
+export const signupSchema = yup.object({
   name,
   age,
   email,
@@ -33,8 +33,8 @@ exports.signupSchema = yup.object({
   isVoted,
 });
 
-// Login Schema (can login via aadharCardNumber or email or mobile)
-exports.loginSchema = yup
+// Login Schema
+export const loginSchema = yup
   .object({
     aadharCardNumber: yup
       .string()
@@ -53,25 +53,25 @@ exports.loginSchema = yup
     (value) => value.email || value.mobile || value.aadharCardNumber
   );
 
-// Update Profile Schema (partial fields allowed)
-exports.updateProfileSchema = yup.object({
+// Update Profile Schema
+export const updateProfileSchema = yup.object({
   name: name.optional(),
   age: age.optional(),
   email: email.optional(),
   mobile: mobile.optional(),
   address: address.optional(),
-  password: password.optional(), // optional unless updating password specifically
+  password: password.optional(),
   role: role.optional(),
   isVoted: isVoted.optional(),
 });
 
 // Update Password Schema
-exports.updatePasswordSchema = yup.object({
+export const updatePasswordSchema = yup.object({
   currentPassword: yup.string().required("Current password is required"),
   newPassword: yup.string().min(6).required("New password is required"),
 });
 
-// Profile Query Params (if any)
-exports.profileQuerySchema = yup.object({
+// Profile Query Params
+export const profileQuerySchema = yup.object({
   includeDetails: yup.boolean().optional(),
 });

@@ -1,9 +1,9 @@
-const Candidate = require("../models/candidate");
-const User = require("../models/user");
-const logger = require("../utils/logger");
+import Candidate from "../models/candidate.js";
+import User from "../models/user.js";
+import logger from "../utils/logger.js";
 
 // Utility function to check if user is an admin
-exports.checkAdminRole = async (userId) => {
+export const checkAdminRole = async (userId) => {
   try {
     const user = await User.findById(userId);
     return user && user.role === "admin";
@@ -14,18 +14,18 @@ exports.checkAdminRole = async (userId) => {
 };
 
 // Create a new candidate
-exports.createCandidate = async (data) => {
+export const createCandidate = async (data) => {
   const newCandidate = new Candidate(data);
   return await newCandidate.save();
 };
 
 // Fetch all candidates
-exports.getAllCandidates = async () => {
+export const getAllCandidates = async () => {
   return await Candidate.find();
 };
 
 // Update candidate details
-exports.updateCandidate = async (candidateId, updateData) => {
+export const updateCandidate = async (candidateId, updateData) => {
   return await Candidate.findByIdAndUpdate(candidateId, updateData, {
     new: true, // return updated document
     runValidators: true, // run schema validations
@@ -33,12 +33,12 @@ exports.updateCandidate = async (candidateId, updateData) => {
 };
 
 // Delete a candidate by ID
-exports.deleteCandidate = async (candidateId) => {
+export const deleteCandidate = async (candidateId) => {
   return await Candidate.findByIdAndDelete(candidateId);
 };
 
 // Vote for a candidate
-exports.voteForCandidate = async (candidateId, userId) => {
+export const voteForCandidate = async (candidateId, userId) => {
   const candidate = await Candidate.findById(candidateId);
   if (!candidate) throw new Error("Candidate Not Found");
 
@@ -61,8 +61,8 @@ exports.voteForCandidate = async (candidateId, userId) => {
 };
 
 // Return vote counts for all candidates sorted by most votes
-exports.getVoteCounts = async () => {
-  const candidates = await Candidate.find().sort({ voteCount: -1 }); // descending
+export const getVoteCounts = async () => {
+  const candidates = await Candidate.find().sort({ voteCount: -1 });
   return candidates.map((c) => ({
     party: c.party,
     count: c.voteCount,

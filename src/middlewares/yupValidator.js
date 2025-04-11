@@ -1,4 +1,4 @@
-module.exports =
+const yupValidator =
   (schema, type = "body") =>
   async (req, res, next) => {
     try {
@@ -20,3 +20,5 @@ module.exports =
       });
     }
   };
+
+export default yupValidator;

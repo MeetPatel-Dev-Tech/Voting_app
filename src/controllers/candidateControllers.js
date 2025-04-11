@@ -1,8 +1,8 @@
-const candidateService = require("../services/candidateService");
-const logger = require("../utils/logger");
+import * as candidateService from "../services/candidateService.js";
+import logger from "../utils/logger.js";
 
 // Create a candidate (admin only)
-exports.createCandidate = async (req, res) => {
+export const createCandidate = async (req, res) => {
   try {
     // Check for admin role
     if (!(await candidateService.checkAdminRole(req.user.id))) {
@@ -19,7 +19,7 @@ exports.createCandidate = async (req, res) => {
 };
 
 // Get all candidates
-exports.getAllCandidates = async (req, res) => {
+export const getAllCandidates = async (req, res) => {
   try {
     const response = await candidateService.getAllCandidates();
     res.status(200).json({ response });
@@ -30,7 +30,7 @@ exports.getAllCandidates = async (req, res) => {
 };
 
 // Update candidate by ID (admin only)
-exports.updateCandidate = async (req, res) => {
+export const updateCandidate = async (req, res) => {
   try {
     if (!(await candidateService.checkAdminRole(req.user.id))) {
       return res.status(403).json({ message: "User does not have admin role" });
@@ -53,7 +53,7 @@ exports.updateCandidate = async (req, res) => {
 };
 
 // Delete candidate by ID (admin only)
-exports.deleteCandidate = async (req, res) => {
+export const deleteCandidate = async (req, res) => {
   try {
     if (!(await candidateService.checkAdminRole(req.user.id))) {
       return res.status(403).json({ message: "User does not have admin role" });
@@ -75,7 +75,7 @@ exports.deleteCandidate = async (req, res) => {
 };
 
 // Vote for candidate (non-admin users only, once per user)
-exports.voteForCandidate = async (req, res) => {
+export const voteForCandidate = async (req, res) => {
   try {
     const response = await candidateService.voteForCandidate(
       req.params.candidateId,
@@ -89,7 +89,7 @@ exports.voteForCandidate = async (req, res) => {
 };
 
 // Get total vote counts sorted by highest votes
-exports.getVoteCounts = async (req, res) => {
+export const getVoteCounts = async (req, res) => {
   try {
     const response = await candidateService.getVoteCounts();
     res.status(200).json(response);

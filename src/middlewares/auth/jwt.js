@@ -1,8 +1,8 @@
-var jwt = require("jsonwebtoken");
-const logger = require("../../utils/logger");
+import jwt from "jsonwebtoken";
+import logger from "../../utils/logger.js";
 
 // Middleware to validate JWT token
-const jwtAuthMiddleware = (req, res, next) => {
+export const jwtAuthMiddleware = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (!authorization || !authorization.startsWith("Bearer ")) {
     logger.warn("Token Not Found or Invalid Format");
@@ -27,8 +27,6 @@ const jwtAuthMiddleware = (req, res, next) => {
 };
 
 // Function to generate JWT token with user data
-const generateToken = (userData) => {
-  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: 30000 }); // 1800 seconds = 30 minutes
+export const generateToken = (userData) => {
+  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: 30000 });
 };
-
-module.exports = { jwtAuthMiddleware, generateToken };

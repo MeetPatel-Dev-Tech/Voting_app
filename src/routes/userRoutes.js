@@ -1,22 +1,25 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+
+import {
   signup,
   login,
   getProfile,
   updateProfile,
   updatePassword,
   deleteProfile,
-} = require("../controllers/userController");
-const { jwtAuthMiddleware } = require("../middlewares/auth/jwt");
-const yupValidator = require("../middlewares/yupValidator");
-const {
+} from "../controllers/userController.js";
+
+import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
+import yupValidator from "../middlewares/yupValidator.js";
+
+import {
   signupSchema,
   loginSchema,
   updateProfileSchema,
   updatePasswordSchema,
   profileQuerySchema,
-} = require("../validators/userSchemas");
+} from "../validators/userSchemas.js";
 
 // User registration
 router.post("/signup", yupValidator(signupSchema, "body"), signup);
@@ -51,4 +54,4 @@ router.put(
 // Delete authenticated user's profile
 router.delete("/profile", jwtAuthMiddleware, deleteProfile);
 
-module.exports = router;
+export default router;

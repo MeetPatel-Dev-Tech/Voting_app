@@ -1,8 +1,8 @@
-const { generateToken } = require("../middlewares/auth/jwt");
-const userService = require("../services/userService");
-const logger = require("../utils/logger");
+import { generateToken } from "../middlewares/auth/jwt.js";
+import * as userService from "../services/userService.js";
+import logger from "../utils/logger.js";
 
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     const { role, ...data } = req.body;
 
@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { aadharCardNumber, password } = req.body;
 
@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const User = await userService.findUserById(userId);
@@ -52,7 +52,7 @@ exports.getProfile = async (req, res) => {
   }
 };
 
-exports.updatePassword = async (req, res) => {
+export const updatePassword = async (req, res) => {
   try {
     const userId = req.user.id;
     const { currentPassword, newPassword } = req.body;
@@ -73,7 +73,7 @@ exports.updatePassword = async (req, res) => {
   }
 };
 
-exports.updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const { password, ...otherData } = req.body;
@@ -99,7 +99,7 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-exports.deleteProfile = async (req, res) => {
+export const deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const deleted = await userService.deleteUserById(userId);

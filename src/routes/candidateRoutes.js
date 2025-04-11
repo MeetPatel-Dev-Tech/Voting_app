@@ -1,21 +1,24 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+
+import {
   createCandidate,
   getAllCandidates,
   updateCandidate,
   deleteCandidate,
   voteForCandidate,
   getVoteCounts,
-} = require("../controllers/candidateControllers");
-const { jwtAuthMiddleware } = require("../middlewares/auth/jwt");
-const yupValidator = require("../middlewares/yupValidator");
-const {
+} from "../controllers/candidateControllers.js";
+
+import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
+import yupValidator from "../middlewares/yupValidator.js";
+
+import {
   createCandidateSchema,
   updateCandidateSchema,
   candidateIdParamSchema,
   voteParamsSchema,
-} = require("../validators/candidateSchemas");
+} from "../validators/candidateSchemas.js";
 
 // Create a new candidate (Admin only)
 router.post(
@@ -56,4 +59,4 @@ router.post(
 // Get total vote counts per candidate
 router.get("/vote/count", getVoteCounts);
 
-module.exports = router;
+export default router;

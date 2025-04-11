@@ -1,4 +1,4 @@
-const yup = require("yup");
+import * as yup from "yup";
 
 // Create candidate - POST "/"
 const createCandidateSchema = yup.object({
@@ -25,7 +25,7 @@ const voteParamsSchema = yup.object({
   candidateId: yup.string().length(24, "Invalid candidateId").required(),
 });
 
-module.exports = {
+export {
   createCandidateSchema,
   updateCandidateSchema,
   candidateIdParamSchema,

@@ -1,11 +1,12 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const rateLimiter = require("./middlewares/rateLimiter");
-const corsOptions = require("./middlewares/corsOptions");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
 
-const userRoutes = require("./routes/userRoutes");
-const candidateRoutes = require("./routes/candidateRoutes");
+import rateLimiter from "./middlewares/rateLimiter.js";
+import corsOptions from "./middlewares/corsOptions.js";
+
+import userRoutes from "./routes/userRoutes.js";
+import candidateRoutes from "./routes/candidateRoutes.js";
 
 const app = express();
 
@@ -16,4 +17,4 @@ app.use(bodyParser.json());
 app.use("/user", userRoutes);
 app.use("/candidate", candidateRoutes);
 
-module.exports = app;
+export default app;

@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
-const logger = require("../utils/logger");
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import logger from "../utils/logger.js";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // MongoDB URL from environment variables
 // const mongoURL = process.env.DB_URL;
@@ -12,7 +15,7 @@ mongoose.connect(mongoURL, {
   useUnifiedTopology: true,
 });
 
-// Default connecion
+// Default connection
 const db = mongoose.connection;
 
 // MongoDB connection events
@@ -28,4 +31,4 @@ db.on("disconnected", () => {
   logger.error("disconnected to mongoDB server ::");
 });
 
-module.exports = db;
+export default db;

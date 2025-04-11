@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Candidate schema defines a political candidate and their vote records
 const candidateSchema = new mongoose.Schema({
@@ -19,11 +19,11 @@ const candidateSchema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-        require: true,
+        required: true,
       },
       votedAt: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
       },
     },
   ],
@@ -34,5 +34,5 @@ const candidateSchema = new mongoose.Schema({
 });
 
 // Exporting the Candidate model
-const candidate = mongoose.model("Candidate", candidateSchema);
-module.exports = candidate;
+const Candidate = mongoose.model("Candidate", candidateSchema);
+export default Candidate;

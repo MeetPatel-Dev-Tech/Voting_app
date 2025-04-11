@@ -11,3 +11,4 @@
 [2025-04-11 11:48:07] ERROR: Error JWT Verification: jwt expired
 [2025-04-11 14:31:25] ERROR: disconnected to mongoDB server ::
 [2025-04-11 14:41:00] ERROR: disconnected to mongoDB server ::
+[2025-04-11 15:47:41] ERROR: Error in signup: E11000 duplicate key error collection: voting.users index: aadharCardNumber_1 dup key: { aadharCardNumber: "305053670817" }
