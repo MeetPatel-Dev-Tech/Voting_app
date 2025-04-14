@@ -1406,3 +1406,23 @@
 [2025-04-11 18:12:41] ERROR: Error in signup: Spread syntax requires ...iterable[Symbol.iterator] to be a function
 [2025-04-11 18:12:59] ERROR: Error in signup: First argument to `Model` constructor must be an object, **not** a string. Make sure you're calling `mongoose.model()`, not `mongoose.Model()`.
 [2025-04-14 14:36:47] ERROR: Error in getAllUsersWithVotes: Parameter "filter" to find() must be an object, got "name votes" (type string)
+[2025-04-14 15:38:51] ERROR: disconnected to mongoDB server ::
+[2025-04-14 16:42:09] ERROR: Error in requestOTP: Invalid parameter `To`: +91+919558811128
+[2025-04-14 16:50:08] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:50:16] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:52:25] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:52:36] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:52:47] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:56:08] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 16:56:28] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 17:00:52] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 17:03:06] ERROR: Error in signup: The requested resource /Services/VAaf5f22d06ced5837ef1e5594ba64e01d/VerificationCheck was not found
+[2025-04-14 17:19:24] ERROR: Error in signup: Invalid or expired OTP
+[2025-04-14 17:21:51] ERROR: Error in signup: Invalid or expired OTP
+[2025-04-14 17:22:27] ERROR: Error in signup: Invalid OTP
+[2025-04-14 17:22:30] ERROR: Error in signup: Invalid OTP
+[2025-04-14 17:23:58] ERROR: Error in signup: Max check attempts reached
+[2025-04-14 17:24:39] ERROR: Error in signup: Max check attempts reached
+[2025-04-14 18:12:34] ERROR: Error in signup: Max check attempts reached
+[2025-04-14 18:13:00] ERROR: Error in requestOTP: Failed to send OTP
+[2025-04-14 18:22:05] ERROR: Error in signup: Invalid OTP

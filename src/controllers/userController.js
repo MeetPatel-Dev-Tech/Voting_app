@@ -2,10 +2,14 @@ import { generateToken } from "../middlewares/auth/jwt.js";
 import * as userService from "../services/userService.js";
 import logger from "../utils/logger.js";
 import { successResponse, errorResponse } from "../utils/responseHandler.js";
+import otpService from "../services/otpService.js";
 
-export const signup = async (req, res) => {
+export const verifyOTPAndSignup = async (req, res) => {
   try {
-    const { role, aadharCardNumber, ...data } = req.body;
+    const { mobile, role, aadharCardNumber, otp, ...data } = req.body;
+
+    if (!mobile || !otp)
+      return errorResponse(res, "Mobile & OTP required", 400);
 
     if (role === "admin") {
       const existingAdmin = await userService.findExistingAdmin();
@@ -19,9 +23,13 @@ export const signup = async (req, res) => {
       return errorResponse(res, "User already registered, kindly login.", 400);
     }
 
+    // Step 1: Verify OTP
+    await otpService.verifyOTP(mobile, otp);
+
     const savedUser = await userService.createUser({
       role,
       aadharCardNumber,
+      mobile,
       ...data,
     });
 
@@ -34,6 +42,9 @@ export const signup = async (req, res) => {
     );
   } catch (err) {
     logger.error("Error in signup:", err);
+    if (err.status) {
+      return errorResponse(res, err.message, err.status, err);
+    }
     return errorResponse(res, "Internal Server Error");
   }
 };
@@ -182,5 +193,29 @@ export const deleteProfile = async (req, res) => {
   } catch (error) {
     logger.error("Error in deleteProfile:", error);
     return errorResponse(res, "Internal Server Error");
+  }
+};
+
+export const requestOTP = async (req, res) => {
+  try {
+    const { mobile } = req.body;
+
+    if (!mobile) return errorResponse(res, "Mobile number is required", 400);
+
+    // Call otpService to send OTP
+    const result = await otpService.sendOTP(mobile); // Assuming Indian numbers
+    if (result.success) {
+      return successResponse(res, {}, "OTP sent successfully");
+    }
+
+    // If OTP sending failed
+    return errorResponse(res, "Failed to send OTP", 500);
+  } catch (err) {
+    logger.error("Error in requestOTP:", err);
+    return errorResponse(
+      res,
+      err.message || "Internal server error",
+      err.status || 500
+    );
   }
 };

@@ -2,13 +2,14 @@ import express from "express";
 const router = express.Router();
 
 import {
-  signup,
+  verifyOTPAndSignup,
   login,
   getProfile,
   updateProfile,
   updatePassword,
   deleteProfile,
   getAllUsersWithVoteDetails,
+  requestOTP,
 } from "../controllers/userController.js";
 
 import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
@@ -23,8 +24,10 @@ import {
 } from "../validators/userSchemas.js";
 import verifyAdminAccess from "../middlewares/verifyAdminAccess.js";
 
+router.post("/request-otp", requestOTP);
+
 // User registration
-router.post("/signup", yupValidator(signupSchema, "body"), signup);
+router.post("/signup", yupValidator(signupSchema, "body"), verifyOTPAndSignup);
 
 // User login
 router.post("/login", yupValidator(loginSchema, "body"), login);

@@ -19,6 +19,10 @@ const password = yup
   .required("Password is required");
 const role = yup.string().oneOf(["voter", "admin"]).default("voter");
 const isVoted = yup.boolean().default(false);
+const otp = yup
+  .string()
+  .required("OTP is required")
+  .matches(/^\d{6}$/, "OTP must be exactly 6 digits");
 
 // Signup Schema
 export const signupSchema = yup.object({
@@ -31,6 +35,7 @@ export const signupSchema = yup.object({
   password,
   role,
   isVoted,
+  otp,
 });
 
 // Login Schema
