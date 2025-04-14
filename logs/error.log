@@ -1405,3 +1405,4 @@
 [2025-04-11 18:09:27] ERROR: Error in signup: User validation failed: aadharCardNumber: Path `aadharCardNumber` is required.
 [2025-04-11 18:12:41] ERROR: Error in signup: Spread syntax requires ...iterable[Symbol.iterator] to be a function
 [2025-04-11 18:12:59] ERROR: Error in signup: First argument to `Model` constructor must be an object, **not** a string. Make sure you're calling `mongoose.model()`, not `mongoose.Model()`.
+[2025-04-14 14:36:47] ERROR: Error in getAllUsersWithVotes: Parameter "filter" to find() must be an object, got "name votes" (type string)

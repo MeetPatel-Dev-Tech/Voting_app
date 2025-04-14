@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Candidate from "../models/candidate.js";
 
 // Create user
 export const createUser = async (data) => {
@@ -35,4 +36,19 @@ export const updateUser = async (userDoc, newData) => {
 // Delete user
 export const deleteUserById = async (id) => {
   return await User.findByIdAndDelete(id);
+};
+
+// Find the candidate that a specific user has voted for
+export const findCandidateVotedByUser = async (id) => {
+  return await Candidate.findOne({ "votes.user": id }, "name _id");
+};
+
+// Fetch all users from the database
+export const getAllUsers = async (id) => {
+  return await User.find().lean();
+};
+
+// Fetch all candidates with their vote records
+export const getAllCandidatesWithVotes = async (id) => {
+  return await Candidate.find({}, "name votes").lean();
 };

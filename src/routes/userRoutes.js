@@ -8,6 +8,7 @@ import {
   updateProfile,
   updatePassword,
   deleteProfile,
+  getAllUsersWithVoteDetails,
 } from "../controllers/userController.js";
 
 import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
@@ -20,6 +21,7 @@ import {
   updatePasswordSchema,
   profileQuerySchema,
 } from "../validators/userSchemas.js";
+import verifyAdminAccess from "../middlewares/verifyAdminAccess.js";
 
 // User registration
 router.post("/signup", yupValidator(signupSchema, "body"), signup);
@@ -53,5 +55,13 @@ router.put(
 
 // Delete authenticated user's profile
 router.delete("/profile", jwtAuthMiddleware, deleteProfile);
+
+// Route to fetch all users with voting details (admin access)
+router.get(
+  "/vote-details",
+  jwtAuthMiddleware,
+  verifyAdminAccess,
+  getAllUsersWithVoteDetails
+);
 
 export default router;

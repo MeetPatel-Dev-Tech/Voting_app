@@ -60,9 +60,67 @@ export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const User = await userService.findUserById(userId);
-    return successResponse(res, { user: User }, "User profile fetched");
+    if (!User) {
+      return errorResponse(res, "User Not Found", 404);
+    }
+
+    let votedTo = null;
+
+    if (User.isVoted) {
+      const candidate = await userService.findCandidateVotedByUser(userId);
+
+      if (candidate) {
+        votedTo = {
+          id: candidate.id,
+          name: candidate.name,
+        };
+      }
+    }
+
+    const userProfile = {
+      User,
+      votedTo: votedTo,
+    };
+    return successResponse(res, { user: userProfile }, "User profile fetched");
   } catch (error) {
     logger.error("Error in getProfile:", error);
+    return errorResponse(res, "Internal Server Error");
+  }
+};
+
+// Get all users along with their voting status and the candidate they voted for
+export const getAllUsersWithVoteDetails = async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    const candidates = await userService.getAllCandidatesWithVotes();
+
+    // Create a map of userId to candidate
+    const userVoteMap = {};
+
+    candidates.forEach((candidate) => {
+      candidate.votes.forEach((vote) => {
+        userVoteMap[vote.user.toString()] = {
+          id: candidate._id,
+          name: candidate.name,
+        };
+      });
+    });
+
+    // Append userVoted and votedTo info
+    const enrichedUsers = users.map((user) => {
+      const votedTo = userVoteMap[user._id.toString()];
+      return {
+        ...user,
+        votedTo: user.isVoted && votedTo ? votedTo : null,
+      };
+    });
+    return successResponse(
+      res,
+      { users: enrichedUsers },
+      "Users profile fetched"
+    );
+  } catch (error) {
+    logger.error("Error in getAllUsersWithVotes:", error);
     return errorResponse(res, "Internal Server Error");
   }
 };
