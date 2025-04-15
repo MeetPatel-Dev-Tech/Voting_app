@@ -1427,3 +1427,8 @@
 [2025-04-14 18:13:00] ERROR: Error in requestOTP: Failed to send OTP
 [2025-04-14 18:22:05] ERROR: Error in signup: Invalid OTP
 [2025-04-15 11:44:35] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 14:40:32] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 14:40:52] ERROR: Error in createCandidate: createLog is not defined
+[2025-04-15 14:41:12] ERROR: Error in createCandidate: name is not defined
+[2025-04-15 14:55:00] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 14:57:34] ERROR: Error JWT Verification: jwt expired

@@ -3,6 +3,7 @@ import * as userService from "../services/userService.js";
 import logger from "../utils/logger.js";
 import { successResponse, errorResponse } from "../utils/responseHandler.js";
 import otpService from "../services/otpService.js";
+import { createLog } from "../utils/dbLogger.js";
 
 export const verifyOTPAndSignup = async (req, res) => {
   try {
@@ -223,6 +224,14 @@ export const deleteUserByAdmin = async (req, res) => {
     }
 
     const deleted = await userService.deleteUserById(id);
+
+    await createLog({
+      adminId: req.user.id,
+      action: "DELETE_USER",
+      target: id,
+      description: `Admin deleted user ${id}`,
+    });
+
     return successResponse(res, { user: deleted }, "User deleted successfully");
   } catch (error) {
     logger.error("Error in deleteProfile:", error);

@@ -1,12 +1,27 @@
 import * as candidateService from "../services/candidateService.js";
+import { createLog } from "../utils/dbLogger.js";
 import logger from "../utils/logger.js";
 import { successResponse, errorResponse } from "../utils/responseHandler.js";
 
 // Create a candidate (admin only)
 export const createCandidate = async (req, res) => {
   try {
+    const { name, party, age } = req.body;
+
     // Create and return new candidate
     const response = await candidateService.createCandidate(req.body);
+
+    await createLog({
+      adminId: req.user.id,
+      action: "CREATE_CANDIDATE",
+      target: {
+        candidateId: response._id,
+        name: response.name,
+        party: response.party,
+      },
+      description: `Admin (${req.user.id}) created candidate '${name}' from '${party}' aged ${age}`,
+    });
+
     return successResponse(
       res,
       { candidate: response },
@@ -44,6 +59,18 @@ export const updateCandidate = async (req, res) => {
     if (!response) {
       return errorResponse(res, "Candidate Not Found", 404);
     }
+
+    await createLog({
+      adminId: req.user.id,
+      action: "UPDATE_CANDIDATE",
+      target: {
+        candidateId: response._id,
+        name: response.name,
+        party: response.party,
+      },
+      description: `Admin (${req.user.id}) updated candidate '${response.name}' from '${response.party}' aged ${response.age}`,
+    });
+
     return successResponse(
       res,
       { candidate: response },
@@ -65,6 +92,18 @@ export const deleteCandidate = async (req, res) => {
     if (!response) {
       return errorResponse(res, "Candidate Not Found", 404);
     }
+
+    await createLog({
+      adminId: req.user.id,
+      action: "DELETE_CANDIDATE",
+      target: {
+        candidateId: response._id,
+        name: response.name,
+        party: response.party,
+      },
+      description: `Admin (${req.user.id}) deleted candidate '${response.name}' from '${response.party}' aged ${response.age}`,
+    });
+
     return successResponse(
       res,
       { candidate: response },
