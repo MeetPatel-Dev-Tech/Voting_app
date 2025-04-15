@@ -1830,3 +1830,18 @@ Received SIGINT. Closing server and DB connection...
 [2025-04-14 18:22:26] INFO: Hashing password...
 [2025-04-14 18:22:59] INFO: Server running on port 3000
 [2025-04-14 18:22:59] INFO: connected to mongoDB server ::
+[2025-04-15 11:44:35] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 11:49:48] INFO: Server running on port 3000
+[2025-04-15 11:49:48] INFO: connected to mongoDB server ::
+[2025-04-15 11:54:48] INFO: Server running on port 3000
+[2025-04-15 11:54:48] INFO: connected to mongoDB server ::
+[2025-04-15 11:55:31] INFO: Server running on port 3000
+[2025-04-15 11:55:31] INFO: connected to mongoDB server ::
+[2025-04-15 11:56:22] INFO: Server running on port 3000
+[2025-04-15 11:56:22] INFO: connected to mongoDB server ::
+[2025-04-15 12:00:49] INFO: Server running on port 3000
+[2025-04-15 12:00:49] INFO: connected to mongoDB server ::
+[2025-04-15 12:00:50] INFO: Server running on port 3000
+[2025-04-15 12:00:50] INFO: connected to mongoDB server ::
+[2025-04-15 12:01:16] INFO: Server running on port 3000
+[2025-04-15 12:01:16] INFO: connected to mongoDB server ::

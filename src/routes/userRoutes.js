@@ -10,6 +10,7 @@ import {
   deleteProfile,
   getAllUsersWithVoteDetails,
   requestOTP,
+  deleteUserByAdmin,
 } from "../controllers/userController.js";
 
 import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
@@ -58,6 +59,14 @@ router.put(
 
 // Delete authenticated user's profile
 router.delete("/profile", jwtAuthMiddleware, deleteProfile);
+
+// Admin delete any user by ID
+router.delete(
+  "/admin/users/:id",
+  jwtAuthMiddleware,
+  verifyAdminAccess,
+  deleteUserByAdmin
+);
 
 // Route to fetch all users with voting details (admin access)
 router.get(

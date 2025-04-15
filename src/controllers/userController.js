@@ -14,7 +14,10 @@ export const verifyOTPAndSignup = async (req, res) => {
     if (role === "admin") {
       const existingAdmin = await userService.findExistingAdmin();
       if (existingAdmin) {
-        return errorResponse(res, "Admin already exists", 400);
+        return errorResponse(res, "Admin already exists", 400, {
+          aadharCardNumber: existingAdmin.aadharCardNumber,
+          role: existingAdmin.role,
+        });
       }
     }
 
@@ -188,7 +191,38 @@ export const updateProfile = async (req, res) => {
 export const deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;
+    const user = await userService.findUserById(userId);
+    if (!user) {
+      return errorResponse(res, "User not found", 404);
+    }
+
+    // Prevent deleting an admin
+    if (user.role === "admin") {
+      return errorResponse(res, "Cannot delete an admin user", 403);
+    }
     const deleted = await userService.deleteUserById(userId);
+    return successResponse(res, { user: deleted }, "User deleted successfully");
+  } catch (error) {
+    logger.error("Error in deleteProfile:", error);
+    return errorResponse(res, "Internal Server Error");
+  }
+};
+
+export const deleteUserByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await userService.findUserById(id);
+    if (!user) {
+      return errorResponse(res, "User not found", 404);
+    }
+
+    // Prevent deleting an admin
+    if (user.role === "admin") {
+      return errorResponse(res, "Cannot delete an admin user", 403);
+    }
+
+    const deleted = await userService.deleteUserById(id);
     return successResponse(res, { user: deleted }, "User deleted successfully");
   } catch (error) {
     logger.error("Error in deleteProfile:", error);

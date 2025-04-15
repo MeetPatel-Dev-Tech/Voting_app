@@ -1426,3 +1426,4 @@
 [2025-04-14 18:12:34] ERROR: Error in signup: Max check attempts reached
 [2025-04-14 18:13:00] ERROR: Error in requestOTP: Failed to send OTP
 [2025-04-14 18:22:05] ERROR: Error in signup: Invalid OTP
+[2025-04-15 11:44:35] ERROR: Error JWT Verification: jwt expired
