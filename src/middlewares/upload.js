@@ -1,7 +1,5 @@
-// upload.js
 import multer from "multer";
 import multerS3 from "multer-s3";
-import AWS from "aws-sdk";
 import path from "path";
 import { s3 } from "../utils/s3Service.js";
 

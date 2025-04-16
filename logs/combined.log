@@ -1958,3 +1958,17 @@ Received SIGINT. Closing server and DB connection...
 [2025-04-16 18:06:30] INFO: Server running on port 3000
 [2025-04-16 18:06:30] INFO: connected to mongoDB server ::
 [2025-04-16 18:07:56] WARN: Token Not Found or Invalid Format
+[2025-04-16 18:17:23] INFO: Server running on port 3000
+[2025-04-16 18:17:23] INFO: connected to mongoDB server ::
+[2025-04-16 18:17:24] INFO: Server running on port 3000
+[2025-04-16 18:17:24] INFO: connected to mongoDB server ::
+[2025-04-16 18:22:10] INFO: Server running on port 3000
+[2025-04-16 18:22:10] INFO: connected to mongoDB server ::
+[2025-04-16 18:26:35] INFO: Server running on port 3000
+[2025-04-16 18:26:35] INFO: connected to mongoDB server ::
+[2025-04-16 18:26:51] INFO: Server running on port 3000
+[2025-04-16 18:26:51] INFO: connected to mongoDB server ::
+[2025-04-16 18:32:22] INFO: Server running on port 3000
+[2025-04-16 18:32:22] INFO: connected to mongoDB server ::
+[2025-04-16 18:38:05] INFO: Server running on port 3000
+[2025-04-16 18:38:05] INFO: connected to mongoDB server ::

@@ -26,8 +26,8 @@ import verifyAdminAccess from "../middlewares/verifyAdminAccess.js";
 router.post(
   "/",
   jwtAuthMiddleware,
-  // yupValidator(createCandidateSchema, "body"),
   upload.single("image"), // field name must match Postman
+  yupValidator(createCandidateSchema, "body"),
   verifyAdminAccess,
   createCandidate
 );
