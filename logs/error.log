@@ -1432,3 +1432,13 @@
 [2025-04-15 14:41:12] ERROR: Error in createCandidate: name is not defined
 [2025-04-15 14:55:00] ERROR: Error JWT Verification: jwt expired
 [2025-04-15 14:57:34] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 18:44:59] ERROR: disconnected to mongoDB server ::
+[2025-04-16 14:27:52] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 14:33:30] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 14:34:46] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 15:57:24] ERROR: Error JWT Verification: jwt expired
+[2025-04-16 17:27:19] ERROR: Error in createCandidate: file is not defined
+[2025-04-16 17:45:15] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:45:59] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:46:42] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:47:15] ERROR: Error in getAllCandidates: Missing required key 'Key' in params

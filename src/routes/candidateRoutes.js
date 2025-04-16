@@ -12,6 +12,7 @@ import {
 
 import { jwtAuthMiddleware } from "../middlewares/auth/jwt.js";
 import yupValidator from "../middlewares/yupValidator.js";
+import { upload } from "../middlewares/upload.js";
 
 import {
   createCandidateSchema,
@@ -25,7 +26,8 @@ import verifyAdminAccess from "../middlewares/verifyAdminAccess.js";
 router.post(
   "/",
   jwtAuthMiddleware,
-  yupValidator(createCandidateSchema, "body"),
+  // yupValidator(createCandidateSchema, "body"),
+  upload.single("image"), // field name must match Postman
   verifyAdminAccess,
   createCandidate
 );

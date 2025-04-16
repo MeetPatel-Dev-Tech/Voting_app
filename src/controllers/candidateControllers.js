@@ -2,15 +2,29 @@ import * as candidateService from "../services/candidateService.js";
 import { createLog } from "../utils/dbLogger.js";
 import logger from "../utils/logger.js";
 import { successResponse, errorResponse } from "../utils/responseHandler.js";
+import { getSignedUrlFromKey, uploadImageToS3 } from "../utils/s3Service.js";
 
 // Create a candidate (admin only)
 export const createCandidate = async (req, res) => {
   try {
     const { name, party, age } = req.body;
+    const image = req.file;
 
-    // Create and return new candidate
-    const response = await candidateService.createCandidate(req.body);
+    if (!image) {
+      return errorResponse(res, "Image is required");
+    }
+    const imageKey = image.key;
 
+    // Pass image URL to service or directly save
+    const response = await candidateService.createCandidate({
+      name,
+      party,
+      age,
+      imageKey,
+    });
+
+    const signedUrl = getSignedUrlFromKey(imageKey); // 👈 return signed URL immediately
+    const plainResponse = response.toObject();
     await createLog({
       adminId: req.user.id,
       action: "CREATE_CANDIDATE",
@@ -24,7 +38,7 @@ export const createCandidate = async (req, res) => {
 
     return successResponse(
       res,
-      { candidate: response },
+      { candidate: { ...plainResponse, signedUrl } },
       "Candidate created successfully"
     );
   } catch (error) {
@@ -37,9 +51,25 @@ export const createCandidate = async (req, res) => {
 export const getAllCandidates = async (req, res) => {
   try {
     const response = await candidateService.getAllCandidates();
+
+    const candidates = response.map((candidate) => {
+      const imageUrl = candidate?.imageKey
+        ? getSignedUrlFromKey(candidate.imageKey)
+        : null;
+
+      return {
+        id: candidate.id,
+        name: candidate.name,
+        party: candidate.party,
+        age: candidate.age,
+        imageUrl,
+        voteCount: candidate.voteCount,
+      };
+    });
+
     return successResponse(
       res,
-      { allCadidates: response },
+      { allCandidates: candidates },
       "All candidates fetched successfully"
     );
   } catch (error) {

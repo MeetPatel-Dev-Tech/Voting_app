@@ -9,6 +9,8 @@ export const verifyOTPAndSignup = async (req, res) => {
   try {
     const { mobile, role, aadharCardNumber, otp, ...data } = req.body;
 
+    const imageUrl = req.file?.location; // S3 uploaded file URL
+
     if (!mobile || !otp)
       return errorResponse(res, "Mobile & OTP required", 400);
 
@@ -34,6 +36,7 @@ export const verifyOTPAndSignup = async (req, res) => {
       role,
       aadharCardNumber,
       mobile,
+      profileImage: imageUrl, // store S3 URL
       ...data,
     });
 

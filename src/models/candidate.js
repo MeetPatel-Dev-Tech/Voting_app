@@ -14,6 +14,7 @@ const candidateSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  imageKey: { type: String, required: true }, // store S3 key
   votes: [
     {
       user: {

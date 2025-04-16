@@ -1874,3 +1874,87 @@ Received SIGINT. Closing server and DB connection...
 [2025-04-15 14:57:06] INFO: Server running on port 3000
 [2025-04-15 14:57:06] INFO: connected to mongoDB server ::
 [2025-04-15 14:57:34] ERROR: Error JWT Verification: jwt expired
+[2025-04-15 17:25:07] INFO: Received SIGINT. Closing server and DB connection...
+[2025-04-15 17:55:03] INFO: Server running on port 3000
+[2025-04-15 17:55:03] INFO: connected to mongoDB server ::
+[2025-04-15 18:19:21] WARN: Token Not Found or Invalid Format
+[2025-04-15 18:27:01] INFO: Server running on port 3000
+[2025-04-15 18:27:01] INFO: connected to mongoDB server ::
+[2025-04-15 18:44:59] INFO: Received SIGINT. Closing server and DB connection...
+[2025-04-15 18:45:12] INFO: Server running on port 3000
+[2025-04-15 18:45:12] INFO: connected to mongoDB server ::
+[2025-04-16 11:15:34] INFO: Server running on port 3000
+[2025-04-16 11:15:34] INFO: connected to mongoDB server ::
+[2025-04-16 11:25:24] INFO: Received SIGINT. Closing server and DB connection...
+[2025-04-16 11:28:13] INFO: Server running on port 3000
+[2025-04-16 11:28:13] INFO: connected to mongoDB server ::
+[2025-04-16 11:29:25] INFO: Received SIGINT. Closing server and DB connection...
+[2025-04-16 11:30:29] INFO: Server running on port 3000
+[2025-04-16 11:30:30] INFO: connected to mongoDB server ::
+[2025-04-16 11:33:08] INFO: Received SIGINT. Closing server and DB connection...
+[2025-04-16 11:33:21] INFO: Server running on port 3000
+[2025-04-16 11:33:21] INFO: connected to mongoDB server ::
+[2025-04-16 14:06:13] INFO: Server running on port 3000
+[2025-04-16 14:06:13] INFO: connected to mongoDB server ::
+[2025-04-16 14:27:07] INFO: Server running on port 3000
+[2025-04-16 14:27:07] INFO: connected to mongoDB server ::
+[2025-04-16 14:27:52] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 14:33:08] INFO: Server running on port 3000
+[2025-04-16 14:33:08] INFO: connected to mongoDB server ::
+[2025-04-16 14:33:30] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 14:34:46] ERROR: Error in createCandidate: Cannot read properties of undefined (reading 'id')
+[2025-04-16 15:57:19] INFO: Server running on port 3000
+[2025-04-16 15:57:19] INFO: connected to mongoDB server ::
+[2025-04-16 15:57:24] ERROR: Error JWT Verification: jwt expired
+[2025-04-16 15:58:29] INFO: Server running on port 3000
+[2025-04-16 15:58:29] INFO: connected to mongoDB server ::
+[2025-04-16 16:00:16] INFO: Server running on port 3000
+[2025-04-16 16:00:16] INFO: connected to mongoDB server ::
+[2025-04-16 16:04:27] INFO: Server running on port 3000
+[2025-04-16 16:04:27] INFO: connected to mongoDB server ::
+[2025-04-16 16:07:38] INFO: Server running on port 3000
+[2025-04-16 16:07:38] INFO: connected to mongoDB server ::
+[2025-04-16 17:16:15] INFO: Server running on port 3000
+[2025-04-16 17:16:15] INFO: connected to mongoDB server ::
+[2025-04-16 17:18:49] INFO: Server running on port 3000
+[2025-04-16 17:18:49] INFO: connected to mongoDB server ::
+[2025-04-16 17:19:38] INFO: Server running on port 3000
+[2025-04-16 17:19:38] INFO: connected to mongoDB server ::
+[2025-04-16 17:22:07] INFO: Server running on port 3000
+[2025-04-16 17:22:07] INFO: connected to mongoDB server ::
+[2025-04-16 17:24:29] INFO: Server running on port 3000
+[2025-04-16 17:24:29] INFO: connected to mongoDB server ::
+[2025-04-16 17:26:27] INFO: Server running on port 3000
+[2025-04-16 17:26:27] INFO: connected to mongoDB server ::
+[2025-04-16 17:27:19] ERROR: Error in createCandidate: file is not defined
+[2025-04-16 17:29:18] INFO: Server running on port 3000
+[2025-04-16 17:29:18] INFO: connected to mongoDB server ::
+[2025-04-16 17:30:07] INFO: Server running on port 3000
+[2025-04-16 17:30:07] INFO: connected to mongoDB server ::
+[2025-04-16 17:40:29] INFO: Server running on port 3000
+[2025-04-16 17:40:29] INFO: connected to mongoDB server ::
+[2025-04-16 17:41:57] INFO: Server running on port 3000
+[2025-04-16 17:41:57] INFO: connected to mongoDB server ::
+[2025-04-16 17:44:14] INFO: Server running on port 3000
+[2025-04-16 17:44:14] INFO: connected to mongoDB server ::
+[2025-04-16 17:45:15] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:45:55] INFO: Server running on port 3000
+[2025-04-16 17:45:55] INFO: connected to mongoDB server ::
+[2025-04-16 17:45:59] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:46:39] INFO: Server running on port 3000
+[2025-04-16 17:46:39] INFO: connected to mongoDB server ::
+[2025-04-16 17:46:42] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:47:12] INFO: Server running on port 3000
+[2025-04-16 17:47:12] INFO: connected to mongoDB server ::
+[2025-04-16 17:47:15] ERROR: Error in getAllCandidates: Missing required key 'Key' in params
+[2025-04-16 17:48:46] INFO: Server running on port 3000
+[2025-04-16 17:48:46] INFO: connected to mongoDB server ::
+[2025-04-16 18:03:11] INFO: Server running on port 3000
+[2025-04-16 18:03:11] INFO: connected to mongoDB server ::
+[2025-04-16 18:04:31] INFO: Server running on port 3000
+[2025-04-16 18:04:31] INFO: connected to mongoDB server ::
+[2025-04-16 18:05:11] INFO: Server running on port 3000
+[2025-04-16 18:05:11] INFO: connected to mongoDB server ::
+[2025-04-16 18:06:30] INFO: Server running on port 3000
+[2025-04-16 18:06:30] INFO: connected to mongoDB server ::
+[2025-04-16 18:07:56] WARN: Token Not Found or Invalid Format
